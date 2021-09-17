@@ -11,7 +11,7 @@ function Title () {
                 <path d="M16 17H8" stroke="#1FC8E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M10 9H9H8" stroke="#1FC8E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </Svg>
-            <Input type="text" />
+            <Input type="text" value="Untitled"/>
         </Div>
     )
 }
@@ -21,18 +21,24 @@ const Div = styled.div`${({ theme }) => css`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    margin-bottom: 4rem;
 `}`
 
 const Svg = styled.svg`${({ theme }) => css`
     margin-right: 0.8rem;
+
+    width: 3.6rem;
+    height: auto;
 `}`
 
 const Input = styled.input`${({ theme }) => css`
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     font-weight: 500;
     
     border: none;
     outline: none;
+    background: none;
 `}`
 
 export { Title }

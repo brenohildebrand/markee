@@ -11,7 +11,14 @@ function Preview ({ children }: PreviewProps) {
 }
 
 const Div = styled.div`${({ theme }) => css`
-    
+    flex: 5;
+
+    width: 100%;
+    height: 100%;
+
+    padding-left: 5rem;
+    border-left: 1px solid rgba(30, 41, 59, 0.12);
+    font-size: 2rem;
 `}`
 
 export { Preview }
