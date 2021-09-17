@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import logoImage from '../assets/logo192.png'
+import logoImage from '../../assets/logo192.png'
 
 function Logo () {
 
