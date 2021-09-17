@@ -23,10 +23,13 @@ const StyledButton = styled.button`${({ theme }) => css`
     background-color: ${theme.colors.primary};
     border-radius: 3.3px;
 
-    padding: 0.5rem 5rem;
+    width: 100%;
+    height: 5rem;
 
     outline: none;
     border: none;
+    
+    margin-bottom: 4rem;
 `}`
 
 const Svg = styled.svg`${({ theme }) => css`
@@ -36,7 +39,7 @@ const Svg = styled.svg`${({ theme }) => css`
 const P = styled.p`
     margin: 0;
     margin-left: 5px;
-    font-size: 1.35rem;
+    font-size: 1.8rem;
 `
 
 export { Button }

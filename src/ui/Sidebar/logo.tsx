@@ -17,15 +17,19 @@ const Div = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    margin-bottom: 4.2rem;
 `
 
 const Img = styled.img`
-    width: 3.6rem;
+    width: 7rem;
     height: auto;
+
+    margin-right: 1rem;
 `
 
 const P = styled.p`${ ({ theme }) => css`
-    font-size: 3.38401rem;
+    font-size: 4.6rem;
     font-weight: bold;
     line-height: 4.4rem;
 
