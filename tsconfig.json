@@ -15,7 +15,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "baseUrl": "src"
+    "baseUrl": ".",
+    "paths": {
+      "@ui/*": ["./src/ui/*"],
+    }
   },
   "include": ["./src"]
 }

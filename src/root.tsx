@@ -24,6 +24,13 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'DM Sans', sans-serif;
   }
+
+  html,
+  body,
+  [data-js="app"] {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export { Root }
