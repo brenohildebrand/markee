@@ -3,15 +3,15 @@ import styled from "styled-components"
 
 type RawProps = {
     content: string
-    handleChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    handleOnChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-function Raw ({ content, handleChange }: RawProps) {
+function Raw ({ content, handleOnChange }: RawProps) {
     return (
         <S.div>
             <S.textarea 
                 value={content}
-                onChange={handleChange}
+                onChange={handleOnChange}
             />
         </S.div>
     )

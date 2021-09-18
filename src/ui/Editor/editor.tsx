@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, RefObject } from "react";
 import styled from "styled-components";
 import { Preview } from "./preview";
 import { Raw } from "./raw";
@@ -22,27 +22,51 @@ import('highlight.js').then(lib => {
 })
 
 type EditorProps = {
-    activeFile: MarkeeFile
+    activeFile: MarkeeFile | undefined
+    inputRef: RefObject<HTMLInputElement>
+    actions: {
+        createFile: (file?: Partial<MarkeeFile>) => void
+        readFile: (ID: string) => void
+        updateFile: (file: MarkeeFile) => void
+        deleteFile: (ID: string) => void
+    }
 }
 
-function Editor ({ activeFile }: EditorProps) {
-    const [content, setContent] = useState('')
+function Editor ({ activeFile, inputRef, actions }: EditorProps) {
+    /*
+        If the active file is undefined, the editor will use default
+        values for the title and for the content. At the first time 
+        they receive changes, a fresh new file is automatically created.
+    */
+    const { createFile, updateFile } = actions
 
-    const handleRawChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setContent(e.target.value)
+    const handleRawOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        if(activeFile === undefined) createFile({ name: 'Untitled', content: e.target.value })
+        else updateFile({
+            ...activeFile,
+            content: e.target.value
+        })
+    }
+
+    const handleTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if(activeFile === undefined) createFile({ name: e.target.value, content: '' })
+        else updateFile({
+            ...activeFile,
+            name: e.target.value
+        })
     }
 
     return (
         <S.div>
             <S.header>
-                <Title value={activeFile.name}/>
+                <Title inputRef={inputRef} value={activeFile?.name ?? 'Untitled'} onChange={handleTitleOnChange}/>
             </S.header>
             <S.main>
                 <Raw 
-                    content={content}
-                    handleChange={handleRawChange}
+                    content={activeFile?.content ?? ''}
+                    handleOnChange={handleRawOnChange}
                 />
-                <Preview markedContent={marked(content)}/>
+                <Preview markedContent={marked(activeFile?.content ?? '')}/>
             </S.main>
         </S.div>
     )

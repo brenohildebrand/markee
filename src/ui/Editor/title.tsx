@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { ChangeEvent, RefObject } from 'react'
 import styled from "styled-components"
 
 type TitleProps = {
+    inputRef: RefObject<HTMLInputElement>
     value: string
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-function Title ({ value }: TitleProps) {
+function Title ({ inputRef, value, onChange }: TitleProps) {
     return (
         <S.div>
             {icons['file']}
-            <S.input type="text" value={value}/>
+            <S.input ref={inputRef} type="text" value={value} onChange={onChange}/>
         </S.div>
     )
 }
