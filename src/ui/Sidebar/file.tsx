@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 import styled, { css } from "styled-components"
 
 type FileProps = {
     name: string
     active: boolean
     status: 'editing' | 'saving' | 'saved'
+    onClick: () => void
+    onDelete: () => void
 }
 
-function File ({ name, active, status }: FileProps) {
+function File ({ name, active, status, onClick, onDelete }: FileProps) {
+
+    const handleDeleteButtonOnClick = (e: MouseEvent) => {
+        e.stopPropagation()
+        onDelete()
+    }
+
     return (
-        <S.li active={active}>
+        <S.li active={active} onClick={onClick}>
             <S.div>
                 {
                     active 
@@ -19,13 +27,16 @@ function File ({ name, active, status }: FileProps) {
                 <S.a>{name}</S.a>
             </S.div>
             <S.div>
-                <S.button>
-                    {
-                        active 
-                        ? icons[status]
-                        : icons['delete']
-                    }
-                </S.button>
+                {active && (
+                    <S.button>
+                        {icons[status]}
+                    </S.button>
+                )}
+                {!active && (
+                    <S.button onClick={handleDeleteButtonOnClick}>
+                        {icons['delete']}
+                    </S.button>
+                )}
             </S.div>
         </S.li>
     )

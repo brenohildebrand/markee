@@ -1,3 +1,4 @@
+import { readFile } from 'fs'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Button } from './button'
@@ -8,13 +9,16 @@ import { Logo } from './logo'
 type SidebarProps = {
     files: MarkeeFile[]
     actions: {
-        createFile: (file?: MarkeeFile) => void
+        createFile: (file?: Partial<MarkeeFile>) => void
+        readFile: (ID: string) => void
+        updateFile: (file: MarkeeFile) => void
+        deleteFile: (ID: string) => void
     }
 }
 
 function Sidebar ({ files, actions }: SidebarProps) {
 
-    const { createFile } = actions;
+    const { createFile, readFile, deleteFile } = actions;
 
     return (
         <S.div>
@@ -29,6 +33,8 @@ function Sidebar ({ files, actions }: SidebarProps) {
                             name={name} 
                             active={active}
                             status={status}
+                            onClick={() => readFile(id)}
+                            onDelete={() => deleteFile(id)}
                         />
                     )
                 })}
