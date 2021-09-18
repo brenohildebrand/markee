@@ -1,9 +1,13 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-function Button () {
+type ButtonProps = {
+    createFile: (file?: MarkeeFile) => void
+}
+
+function Button ({ createFile }: ButtonProps) {
     return (
-        <S.button>
+        <S.button onClick={() => createFile()}>
             {icons['add']}
             <S.p>Add file</S.p>
         </S.button>

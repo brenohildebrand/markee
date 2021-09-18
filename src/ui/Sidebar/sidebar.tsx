@@ -7,14 +7,20 @@ import { Logo } from './logo'
 
 type SidebarProps = {
     files: MarkeeFile[]
+    actions: {
+        createFile: (file?: MarkeeFile) => void
+    }
 }
 
-function Sidebar ({ files }: SidebarProps) {
+function Sidebar ({ files, actions }: SidebarProps) {
+
+    const { createFile } = actions;
+
     return (
         <S.div>
             <Logo/>
             <Label>Files</Label>
-            <Button/>
+            <Button createFile={createFile}/>
             <S.ul>
                 {files.map(({ id, name, active, status }) => {
                     return (
