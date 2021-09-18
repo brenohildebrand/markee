@@ -35,14 +35,12 @@ const S = {
     div: styled.div`${({ theme }) => css`
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
         
         flex: 2.3;
         height: 100%;
 
         padding: 2rem 5rem;
-        background-color: ${theme.colors.black};
+        background-color: ${ theme.colors.black };
 
         @media only screen and (min-width: 1440px) {
             flex: 1.4;
@@ -53,7 +51,7 @@ const S = {
         list-style: none;
         margin: 0;
         padding: 0;
-    `
+    `,
 }
 
 export { Sidebar }

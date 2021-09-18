@@ -11,12 +11,20 @@ function File ({ name, active, status }: FileProps) {
     return (
         <S.li active={active}>
             <S.div>
-                {active ? icons['active'] : icons['inactive']}
+                {
+                    active 
+                    ? icons['active'] 
+                    : icons['inactive']
+                }
                 <S.a>{name}</S.a>
             </S.div>
             <S.div>
                 <S.button>
-                    {active ? icons[status]: icons['delete']}
+                    {
+                        active 
+                        ? icons[status]
+                        : icons['delete']
+                    }
                 </S.button>
             </S.div>
         </S.li>
@@ -32,63 +40,50 @@ const S = {
         align-items: center;
 
         width: 100%;
-        height: auto;
 
         color: rgba(255, 255, 255, 0.65);
-        background-color: ${theme.colors.black};
+        background-color: ${ theme.colors.black };
 
-        &:hover {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.05);
-            cursor: pointer;
+        padding: 10px 8px;
 
-            & > div > button {
-                visibility: visible;
-            }
-        }
+        border-radius: 6px;
+
+        margin-bottom: 1rem;
 
         & > div > button {
             visibility: hidden;
         }
 
-        padding: 10px 8px;
-        border-radius: 6px;
+        &:hover {
+            cursor: pointer;
 
-        margin-bottom: 1rem;
+            color: white;
+            background-color: rgba(255, 255, 255, 0.05);
+
+            & > div > button { visibility: visible; }
+        }
 
         ${active && css`
             color: white;
             background-color: rgba(255, 255, 255, 0.05);
 
-            & > div > button {
-                visibility: visible;
-            }
+            & > div > button { visibility: visible; }
 
-            &:hover {
-                cursor: default;
-            }
+            &:hover { cursor: default; }
         `}
     `}`,
-
     div: styled.div`
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
     `,
-
-    FileSvg: styled.svg``,
-
-    DeleteSvg: styled.svg`
-        margin-right: 1rem;
-    `,
-
     a: styled.a`
+        font-size: 1.6rem;
+
         margin: 0;
         margin-left: 10px;
-        font-size: 1.6rem;
     `,
-
     button: styled.button`
         display: block;
 
@@ -100,7 +95,6 @@ const S = {
             cursor: pointer;
         }
     `,
-
     icons: {
         active: styled.svg``,
         inactive: styled.svg``,

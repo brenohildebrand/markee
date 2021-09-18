@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Preview } from "./preview";
 import { Raw } from "./raw";
 import { Title } from "./title";
@@ -15,7 +15,9 @@ function Editor ({ activeFile }: EditorProps) {
                 <Title value={activeFile.name}/>
             </S.header>
             <S.main>
-                <Raw/>
+                <Raw>
+                    {activeFile.content}
+                </Raw>
                 <Preview>
                     {activeFile.content}
                 </Preview>
@@ -25,7 +27,7 @@ function Editor ({ activeFile }: EditorProps) {
 }
 
 const S = {
-    div: styled.div`${({ theme }) => css`
+    div: styled.div`
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -41,14 +43,14 @@ const S = {
         @media only screen and (min-width: 1440px) {
             flex: 8.6;
         }
-    `}`,
-    header: styled.header`${({ theme }) => css`
+    `,
+    header: styled.header`
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-    `}`,
-    main: styled.main`${({ theme }) => css`
+    `,
+    main: styled.main`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -56,7 +58,7 @@ const S = {
 
         width: 100%;
         height: 100%;
-    `}`
+    `,
 }
 
 export { Editor }

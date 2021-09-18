@@ -18,36 +18,32 @@ const S = {
         width: 100%;
         height: auto;
 
-        color: white;
         font-size: 2.2rem;
         font-weight: 500;
 
-        margin-bottom: 4.6rem;
+        color: white;
 
-        &::before {
+        margin-bottom: 4.6rem;
+        
+        &::before, &::after {
             display: block;
             
             content: '';
             height: 0.3rem;
-            width: 5rem;
 
-            background-color: ${theme.colors.primary};
+            background-color: ${ theme.colors.primary };
             border-radius: 15px;
+        }
+
+        &::before { 
+            width: 5rem; 
             margin-right: 1rem;
         }
-
-        &::after {
-            display: block;
-            
-            content: '';
-            height: 0.3rem;
-            width: 100%;
-
-            background-color: ${theme.colors.primary};
-            border-radius: 15px;
+        &::after { 
+            width: 100%; 
             margin-left: 1rem;
         }
-    `}`
+    `}`,
 }
 
 export { Label }
