@@ -1,30 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Sidebar } from '@ui/Sidebar/sidebar'
 import { Editor } from '@ui/Editor/editor'
-
-const files: MarkeeFile[] = 
-[
-    {
-        id: '001',
-        name: 'README.md',
-        content: 'I \'m a README file',
-        active: true,
-        status: 'editing',
-    },
-    {
-        id: '002',
-        name: 'CONTRIBUTIONS.md',
-        content: 'Contribute to the community!',
-        active: false,
-        status: 'saved',
-    },
-]
+import { v4 } from 'uuid'
 
 function App () {
+  const [files, setFiles] = useState<MarkeeFile[]>([{
+    id: v4(),
+    name: 'Untitled',
+    content: '',
+    active: true,
+    status: 'saved',
+  }]);
+
+  const actions = {
+    createFile: (file?: MarkeeFile) => {
+
+      if(file) setFiles((prevState) => prevState.concat(file))
+      else {
+        const defaultFile: MarkeeFile = {
+          id: v4(),
+          name: 'Untitled',
+          content: '',
+          active: true,
+          status: 'saved',
+        }
+
+        setFiles((prevState) => prevState.map(file => ({
+          ...file,
+          active: false,
+        })).concat(defaultFile))
+      }
+    }
+  }
+
   return (
     <S.div>
-      <Sidebar files={files}/>
+      <Sidebar files={files} actions={actions}/>
       <Editor activeFile={files.filter(file => file.active)[0]}/>
     </S.div>
   )
