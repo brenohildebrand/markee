@@ -1,14 +1,18 @@
-import React, { ReactNode } from 'react'
+import React, { ChangeEvent } from 'react'
 import styled from "styled-components"
 
 type RawProps = {
-    children: string
+    content: string
+    handleChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-function Raw ({ children }: RawProps) {
+function Raw ({ content, handleChange }: RawProps) {
     return (
         <S.div>
-            <S.textarea value={children}/>
+            <S.textarea 
+                value={content}
+                onChange={handleChange}
+            />
         </S.div>
     )
 }

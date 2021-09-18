@@ -1,26 +1,48 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { Preview } from "./preview";
 import { Raw } from "./raw";
 import { Title } from "./title";
+
+import marked from 'marked'
+import 'highlight.js/styles/github.css'
+
+import('highlight.js').then(lib => {
+    const hljs = lib.default
+
+    marked.setOptions({
+        highlight: (code, language) => {
+            if(language && hljs.getLanguage(language)){
+                return hljs.highlight(code, { language }).value
+            }
+
+            return hljs.highlightAuto(code).value
+        }
+    })
+})
 
 type EditorProps = {
     activeFile: MarkeeFile
 }
 
 function Editor ({ activeFile }: EditorProps) {
+    const [content, setContent] = useState('')
+
+    const handleRawChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setContent(e.target.value)
+    }
+
     return (
         <S.div>
             <S.header>
                 <Title value={activeFile.name}/>
             </S.header>
             <S.main>
-                <Raw>
-                    {activeFile.content}
-                </Raw>
-                <Preview>
-                    {activeFile.content}
-                </Preview>
+                <Raw 
+                    content={content}
+                    handleChange={handleRawChange}
+                />
+                <Preview markedContent={marked(content)}/>
             </S.main>
         </S.div>
     )

@@ -2,11 +2,11 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 type PreviewProps = {
-    children: ReactNode
+    markedContent: string
 }
 
-function Preview ({ children }: PreviewProps) {
-    return <S.div>{children}</S.div> 
+function Preview ({ markedContent }: PreviewProps) {
+    return <S.div dangerouslySetInnerHTML={{ __html: markedContent}}></S.div> 
 }
 
 const S = {
