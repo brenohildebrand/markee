@@ -1,5 +1,6 @@
 import { RefObject, useEffect, useRef, useState } from 'react'
 import { v4 } from 'uuid'
+import localforage from 'localforage'
 
 type TimeoutManager = {
   currentTimeout: number | undefined
@@ -17,12 +18,45 @@ const useFiles = () => {
   })
 
   useEffect(() => {
+    async function getLocalData () {
+      const files = await localforage.getItem<MarkeeFile[]>('markee')
 
+      if(files) {
+        setFiles(files.map((file) => {
+          // Solving corner case
+          if(file.status === 'saving')
+            file.status = 'saved'
+
+          /*
+            Although it may not be properly saved, the current state
+            is saved.
+          */ 
+
+          return file
+        }))
+      }
+    }
+    
+    getLocalData()
+  }, [])
+
+  useEffect(() => {
+    if(files.length > 0) localforage.setItem('markee', files)
+    /*
+      Notice that there's a corner case here.
+      When the files are saved during the 'saving' status, they never complete.
+      Let's solve it up there in the previous useEffect!
+
+      Another corner case: when the app is reloaded to fast for many times and 
+      the when files = [] is persisted.
+    */
+  }, [files])
+
+  useEffect(() => {
     /* 
       It should update to "saved" if and only if the file is not being edited again.
       It should be cleaned up if and only if the same file is being edited.
     */
-
     const activeFile = files.find(file => file.active);
 
     function updateStatus (activeFile: MarkeeFile) {
@@ -32,8 +66,6 @@ const useFiles = () => {
           if(file.id === activeFile!.id) file.status = 'saving'
           return file
         }))
-
-        // Save File
 
         // Notify after delay that it was saved
         timeoutManager.current.currentTimeout = window.setTimeout(() => {
@@ -60,16 +92,18 @@ const useFiles = () => {
         status: 'saved'
       }
 
+      const newFile = {
+        ...defaultFile,
+        ...file,
+        active: true
+      }
+
       setFiles((prevState) => prevState
       .map(oldFile => ({
         ...oldFile,
         active: false,
       }))
-      .concat({
-        ...defaultFile,
-        ...file,
-        active: true
-      }))
+      .concat( newFile ))
 
       inputRef.current?.focus()
     },
