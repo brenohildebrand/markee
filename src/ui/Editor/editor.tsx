@@ -41,7 +41,7 @@ function Editor ({ activeFile, inputRef, actions }: EditorProps) {
     const { createFile, updateFile } = actions
 
     const handleRawOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if(activeFile === undefined) createFile({ name: 'Untitled', content: e.target.value })
+        if(activeFile === undefined) createFile({ name: 'Untitled', content: e.target.value, status: 'editing' })
         else updateFile({
             ...activeFile,
             content: e.target.value
@@ -49,7 +49,7 @@ function Editor ({ activeFile, inputRef, actions }: EditorProps) {
     }
 
     const handleTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if(activeFile === undefined) createFile({ name: e.target.value, content: '' })
+        if(activeFile === undefined) createFile({ name: e.target.value, content: '', status: 'editing' })
         else updateFile({
             ...activeFile,
             name: e.target.value
