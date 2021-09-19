@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Sidebar } from '@ui/Sidebar/sidebar'
 import { Editor } from '@ui/Editor/editor'
-import { useFiles } from './hooks/useFiles'
+import { useFiles } from '@hooks/useFiles'
 
 function App () {
   const { files, actions, inputRef } = useFiles();

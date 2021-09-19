@@ -1,6 +1,7 @@
-import { RefObject, useEffect, useRef, useState } from 'react'
-import { v4 } from 'uuid'
-import localforage from 'localforage'
+import { RefObject, useRef, useState } from 'react'
+import { v4 as createID } from 'uuid'
+import { useAutosave } from '@hooks/useAutosave'
+import { useAutosaveUI } from '@hooks/useAutosaveUI'
 
 type TimeoutManager = {
   currentTimeout: number | undefined
@@ -8,89 +9,35 @@ type TimeoutManager = {
 }
 
 const useFiles = () => {
+  /* State to keep track of our files in the React application. */
   const [files, setFiles] = useState<MarkeeFile[]>([]);
 
+  /* Used later to automatically focus on the title of a file */
   const inputRef: RefObject<HTMLInputElement> = useRef(null)
 
+  /* Used to manage the autosaveUI feature */
   const timeoutManager = useRef<TimeoutManager>({ 
     currentTimeout: undefined,
     editingFileID: undefined
   })
 
-  useEffect(() => {
-    async function getLocalData () {
-      const files = await localforage.getItem<MarkeeFile[]>('markee')
+  /* 
+    Autosave hooks. Notice that the concerns about the UI and the
+    actual autosave are separated.
+  */
+  useAutosaveUI({ files, setFiles, timeoutManager });
+  useAutosave({files, setFiles });
 
-      if(files) {
-        setFiles(files.map((file) => {
-          /*
-            Solving Corner Case. Look at the next useEffect for more info.
-
-            Although the last modification on the file with the 'saving' status 
-            could possibly not be saved at all, we set the status to saved, cause
-            our current version is the saved one.
-          */
-          if(file.status === 'saving') 
-            file.status = 'saved'
-
-          return file
-        }))
-
-        window.history.pushState(null, '', `/file/${files.find(file => file.active)?.id}`)
-      }
-    }
-    
-    getLocalData()
-  }, [])
-
-  useEffect(() => {
-    if(files.length > 0) localforage.setItem('markee', files)
-    /*
-      Corner Cases:
-
-      1. When the files are saved during the 'saving' status, they never complete.
-      This issue is solved in the previous useEffect.
-
-      2. When the app is fast reloaded and this useEffect persists the data when
-      files are just an empty array. So the data is lost. This issue is solved with
-      the if condition in this same useEffect.
-    */
-  }, [files])
-
-  useEffect(() => {
-    /* 
-      It should update to "saved" if and only if the file is not being edited again.
-      It should be cleaned up if and only if the same file is being edited.
-    */
-    const activeFile = files.find(file => file.active);
-
-    function updateStatus (activeFile: MarkeeFile) {
-      // Start Timeout
-      timeoutManager.current.currentTimeout =  window.setTimeout(() => {
-        setFiles(prevState => prevState.map(file => {
-          if(file.id === activeFile!.id) file.status = 'saving'
-          return file
-        }))
-
-        // Notify after delay that it was saved
-        timeoutManager.current.currentTimeout = window.setTimeout(() => {
-          setFiles(prevState => prevState.map(file => {
-            if(file.id === activeFile!.id) file.status = 'saved'
-            return file
-          }))
-        }, 300)
-      }, 300)
-    }
-
-    if(activeFile && activeFile.status === 'editing') updateStatus(activeFile)
-    
-
-  }, [files])
-
+  /* 
+    Actions have the CRUD functions for our files. They affect only
+    the Front-End and the useAutosave do the job for the "Back-End",
+    i.e.,the local storage stuff.
+  */
   const actions = {
+    /* createFile creates a file and make it active */
     createFile: (file: Partial<MarkeeFile> = {}) => {
       const defaultFile: MarkeeFile = {
-        id: v4(),
+        id: createID(),
         name: 'Untitled',
         content: '',
         active: true,
@@ -111,9 +58,9 @@ const useFiles = () => {
       .concat( newFile ))
 
       window.history.pushState(null, '', `/file/${newFile.id}`)
-
       inputRef.current?.focus()
     },
+    /* readFile makes a file active */
     readFile: (ID: string) => {
       setFiles((prevState) => prevState.map(oldFile => {
         if(oldFile.id === ID) 
@@ -131,17 +78,23 @@ const useFiles = () => {
       }))
 
       window.history.pushState(null, '', `/file/${ID}`)
-
       inputRef.current?.focus()
     },
+    /* 
+      updateFile is called when changing anything on any file, so
+      it's also used to help the management of the UI changes 
+      during the Front-End autosave.
+    */
     updateFile: (file: MarkeeFile) => {
-      if(file.id === timeoutManager.current.editingFileID) {
-        // If we continue editing the same file, we should clear the timeout
+
+      /* UI Management */
+      if(timeoutManager.current.editingFileID === file.id) {
+        /* If we continue editing the same file, we should clear the timeout */
         clearTimeout(timeoutManager.current.currentTimeout)
       }
-
       timeoutManager.current.editingFileID = file.id
-
+  
+      /* Files Update */
       setFiles((prevState) => prevState.map(oldFile => {
         if(file.id === oldFile.id) {
           file.status = 'editing'
@@ -151,11 +104,13 @@ const useFiles = () => {
         return oldFile;
       }))
     },
+    /* deleteFile is used just to delete a file without any extra features */
     deleteFile: (ID: string) => {
       setFiles((prevState) => prevState.filter(oldFile => oldFile.id !== ID))
     }
   }
 
+  /* Return all the functions used by the App component */
   return {
     files,
     actions,

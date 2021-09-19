@@ -1,5 +1,4 @@
-import { readFile } from 'fs'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import { Button } from './button'
 import { File } from './file'

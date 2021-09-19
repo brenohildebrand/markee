@@ -11,7 +11,12 @@ function Title ({ inputRef, value, onChange }: TitleProps) {
     return (
         <S.div>
             {icons['file']}
-            <S.input ref={inputRef} type="text" value={value} onChange={onChange}/>
+            <S.input 
+                ref={inputRef} 
+                type="text" 
+                value={value} 
+                onChange={onChange}
+            />
         </S.div>
     )
 }

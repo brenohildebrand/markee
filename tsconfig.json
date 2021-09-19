@@ -18,6 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["./src/ui/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@resources/*": ["./src/resources/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "include": ["./src"]
