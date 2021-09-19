@@ -30,11 +30,13 @@ const useFiles = () => {
             could possibly not be saved at all, we set the status to saved, cause
             our current version is the saved one.
           */
-          if(file.status === 'saving')
+          if(file.status === 'saving') 
             file.status = 'saved'
 
           return file
         }))
+
+        window.history.pushState(null, '', `/file/${files.find(file => file.active)?.id}`)
       }
     }
     
@@ -108,6 +110,8 @@ const useFiles = () => {
       }))
       .concat( newFile ))
 
+      window.history.pushState(null, '', `/file/${newFile.id}`)
+
       inputRef.current?.focus()
     },
     readFile: (ID: string) => {
@@ -125,6 +129,8 @@ const useFiles = () => {
           active: false,
         }
       }))
+
+      window.history.pushState(null, '', `/file/${ID}`)
 
       inputRef.current?.focus()
     },
