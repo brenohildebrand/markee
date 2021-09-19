@@ -23,14 +23,15 @@ const useFiles = () => {
 
       if(files) {
         setFiles(files.map((file) => {
-          // Solving corner case
+          /*
+            Solving Corner Case. Look at the next useEffect for more info.
+
+            Although the last modification on the file with the 'saving' status 
+            could possibly not be saved at all, we set the status to saved, cause
+            our current version is the saved one.
+          */
           if(file.status === 'saving')
             file.status = 'saved'
-
-          /*
-            Although it may not be properly saved, the current state
-            is saved.
-          */ 
 
           return file
         }))
@@ -43,12 +44,14 @@ const useFiles = () => {
   useEffect(() => {
     if(files.length > 0) localforage.setItem('markee', files)
     /*
-      Notice that there's a corner case here.
-      When the files are saved during the 'saving' status, they never complete.
-      Let's solve it up there in the previous useEffect!
+      Corner Cases:
 
-      Another corner case: when the app is reloaded to fast for many times and 
-      the when files = [] is persisted.
+      1. When the files are saved during the 'saving' status, they never complete.
+      This issue is solved in the previous useEffect.
+
+      2. When the app is fast reloaded and this useEffect persists the data when
+      files are just an empty array. So the data is lost. This issue is solved with
+      the if condition in this same useEffect.
     */
   }, [files])
 
