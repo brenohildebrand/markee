@@ -41,8 +41,8 @@ const useFiles = () => {
             if(file.id === activeFile!.id) file.status = 'saved'
             return file
           }))
-        }, 3000)
-      }, 3000)
+        }, 300)
+      }, 300)
     }
 
     if(activeFile && activeFile.status === 'editing') updateStatus(activeFile)
