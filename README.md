@@ -6,7 +6,7 @@
 # Markee
 
 <p>
-    Markee is an app to write markdown files. It shows you a preview and automatically saves the files in the browser storage. It's open-source! Enjoy it!
+    Markee is an app to write markdown files. It shows you the preview and automatically saves all the files in your browser. It's open-source! Enjoy it!
 </p>
 
 <br/>
