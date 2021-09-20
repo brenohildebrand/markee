@@ -25,15 +25,28 @@ const S = {
     div: styled.div`
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
 
-        margin-bottom: 4rem;
+        width: 50%;
+        max-width: 50%;
+        height: 100%;
+
+        margin-bottom: 3rem;
     `,
     input: styled.input`
+        display: block;
+
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+
         font-size: 2.4rem;
         font-weight: 500;
         
+        margin: 0;
+        padding: 0;
+
         border: none;
         outline: none;
         background: none;

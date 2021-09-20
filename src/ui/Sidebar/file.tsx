@@ -18,15 +18,15 @@ function File ({ name, active, status, onClick, onDelete }: FileProps) {
 
     return (
         <S.li active={active} onClick={onClick}>
-            <S.div>
+            <S.firstDiv>
                 {
                     active 
                     ? icons['active'] 
                     : icons['inactive']
                 }
-                <S.a>{name}</S.a>
-            </S.div>
-            <S.div>
+                <S.a>{`${name.slice(0, 25)}${name.length > 25 ? '...' : ''}`}</S.a>
+            </S.firstDiv>
+            <S.secondDiv>
                 {active && (
                     <S.button>
                         {icons[status]}
@@ -37,7 +37,7 @@ function File ({ name, active, status, onClick, onDelete }: FileProps) {
                         {icons['delete']}
                     </S.button>
                 )}
-            </S.div>
+            </S.secondDiv>
         </S.li>
     )
 }
@@ -50,15 +50,16 @@ const S = {
         justify-content: space-between;
         align-items: center;
 
-        width: 100%;
+        width: 90%;
+        max-width: 90%;
 
         color: rgba(255, 255, 255, 0.65);
         background-color: ${ theme.colors.black };
 
-        padding: 10px 8px;
-
         border-radius: 6px;
 
+        padding: 1rem 0.8rem;
+        
         margin-bottom: 1rem;
 
         & > div > button {
@@ -83,17 +84,41 @@ const S = {
             &:hover { cursor: default; }
         `}
     `}`,
-    div: styled.div`
+    firstDiv: styled.div`
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+
+        width: 90%;
+        max-width: 90%;
+
+        & > svg {
+            width: 10%;
+            max-width: 10%;
+        }
+    `,
+    secondDiv: styled.div`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 10%;
+        max-width: 10%;
+        overflow: hidden;
     `,
     a: styled.a`
-        font-size: 1.6rem;
+        font-size: 1.6rem;  
+
+        width: 90%;
+        max-width: 90%;
+        overflow: hidden;
+
+        white-space: nowrap;
 
         margin: 0;
-        margin-left: 10px;
+
+        margin-left: 0.5rem;
     `,
     button: styled.button`
         display: block;

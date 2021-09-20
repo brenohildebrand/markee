@@ -19,10 +19,12 @@ function Raw ({ content, handleOnChange }: RawProps) {
 
 const S = {
     div: styled.div`
-        flex: 5;
+        display: block;
 
-        width: 100%;
+        width: 50%;
+        max-width: 50%;
         height: 100%;
+        max-height: 100%;
 
         padding-right: 5rem;
         border-right: 1px solid rgba(30, 41, 59, 0.12);
@@ -34,6 +36,7 @@ const S = {
 
         width: 100%;
         height: 100%;
+        max-height: 100%;
 
         border: none;
         outline: none;

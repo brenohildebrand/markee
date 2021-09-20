@@ -78,17 +78,15 @@ const S = {
         flex-direction: column;
         justify-content: flex-start;
 
-        flex: 7.7;
-
-        width: 100%;
+        width: 75%;
+        max-width: 75%;
         height: 100%;
+        max-height: 100%;
+
+        overflow: hidden;
 
         padding: 5rem;
         background-color: #F9FBFF;
-
-        @media only screen and (min-width: 1440px) {
-            flex: 8.6;
-        }
     `,
     header: styled.header`
         display: flex;
@@ -100,10 +98,12 @@ const S = {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
 
-        width: 100%;
         height: 100%;
+        max-height: 100%;
+
+        overflow: hidden;
     `,
 }
 

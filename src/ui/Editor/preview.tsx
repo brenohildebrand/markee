@@ -11,12 +11,16 @@ function Preview ({ markedContent }: PreviewProps) {
 
 const S = {
     div: styled.div`
-        flex: 5;
+        display: inline-block;
 
-        width: 100%;
+        width: 50%;
+        max-width: 50%;
         height: 100%;
+        max-height: 100%;
 
-        font-size: 2rem;
+        overflow-y: auto;
+
+        font-size: 1.9rem;
 
         padding-left: 5rem;
         border-left: 1px solid rgba(30, 41, 59, 0.12);

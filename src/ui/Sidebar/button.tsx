@@ -22,7 +22,9 @@ const S = {
         align-items: center;
 
         width: 100%;
-        height: 5rem;
+        max-width: 100%;
+
+        padding: 1.5rem 0;
 
         outline: none;
         border: none;
@@ -42,7 +44,7 @@ const S = {
         font-size: 1.8rem;
 
         margin: 0;
-        margin-left: 5px;
+        margin-left: 0.5rem;
     `,
     icons: {
         add: styled.svg`${({ theme }) => css`

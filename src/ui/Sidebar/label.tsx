@@ -16,6 +16,7 @@ const S = {
         align-items: center;
 
         width: 100%;
+        max-width: 100%;
         height: auto;
 
         font-size: 2.2rem;

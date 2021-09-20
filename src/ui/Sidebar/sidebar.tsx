@@ -46,22 +46,40 @@ const S = {
     div: styled.div`${({ theme }) => css`
         display: flex;
         flex-direction: column;
-        
-        flex: 2.3;
+        justify-content: flex-start;
+        align-items: center;
+
+        width: 25%;
+        max-width: 25%;
         height: 100%;
 
         padding: 2rem 5rem;
         background-color: ${ theme.colors.black };
-
-        @media only screen and (min-width: 1440px) {
-            flex: 1.4;
-        }
     `}`,
     ul: styled.ul`
-        width: 100%;
         list-style: none;
+
+        width: 100%;
+        max-width: 100%;
+
+        overflow: auto;
+
         margin: 0;
         padding: 0;
+
+        &::-webkit-scrollbar {
+            width: 1rem;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }       
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #eeeeee;
+        }
     `,
 }
 
