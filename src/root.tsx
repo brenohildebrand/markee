@@ -5,13 +5,13 @@ import { ThemeProvider } from 'styled-components'
 import { createGlobalStyle } from 'styled-components'
 import 'normalize.css'
 
-function Root () {
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
-  )
+function Root (): JSX.Element {
+	return (
+		<ThemeProvider theme={theme}>
+			<GlobalStyle />
+			<App />
+		</ThemeProvider>
+	)
 }
 
 const GlobalStyle = createGlobalStyle`

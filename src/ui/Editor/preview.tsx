@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 type PreviewProps = {
     markedContent: string
 }
 
-function Preview ({ markedContent }: PreviewProps) {
-    return <S.div dangerouslySetInnerHTML={{ __html: markedContent}}></S.div> 
+function Preview ({ markedContent }: PreviewProps): JSX.Element {
+	return <S.div dangerouslySetInnerHTML={{ __html: markedContent}}></S.div> 
 }
 
 const S = {
-    div: styled.div`
+	div: styled.div`
         display: inline-block;
 
         width: 50%;

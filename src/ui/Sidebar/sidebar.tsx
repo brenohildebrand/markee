@@ -15,35 +15,35 @@ type SidebarProps = {
     }
 }
 
-function Sidebar ({ files, actions }: SidebarProps) {
+function Sidebar ({ files, actions }: SidebarProps): JSX.Element {
 
-    const { createFile, readFile, deleteFile } = actions;
+	const { createFile, readFile, deleteFile } = actions
 
-    return (
-        <S.div>
-            <Logo/>
-            <Label>Files</Label>
-            <Button createFile={createFile}/>
-            <S.ul>
-                {files.map(({ id, name, active, status }) => {
-                    return (
-                        <File 
-                            key={id} 
-                            name={name} 
-                            active={active}
-                            status={status}
-                            onClick={() => readFile(id)}
-                            onDelete={() => deleteFile(id)}
-                        />
-                    )
-                })}
-            </S.ul>
-        </S.div>
-    )
+	return (
+		<S.div>
+			<Logo/>
+			<Label>Files</Label>
+			<Button createFile={createFile}/>
+			<S.ul>
+				{files.map(({ id, name, active, status }) => {
+					return (
+						<File 
+							key={id} 
+							name={name} 
+							active={active}
+							status={status}
+							onClick={() => readFile(id)}
+							onDelete={() => deleteFile(id)}
+						/>
+					)
+				})}
+			</S.ul>
+		</S.div>
+	)
 }
 
 const S = {
-    div: styled.div`${({ theme }) => css`
+	div: styled.div`${({ theme }) => css`
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -56,7 +56,7 @@ const S = {
         padding: 2rem 5rem;
         background-color: ${ theme.colors.black };
     `}`,
-    ul: styled.ul`
+	ul: styled.ul`
         list-style: none;
 
         width: 100%;

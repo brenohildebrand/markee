@@ -1,24 +1,24 @@
 import React, { ChangeEvent } from 'react'
-import styled from "styled-components"
+import styled from 'styled-components'
 
 type RawProps = {
     content: string
     handleOnChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-function Raw ({ content, handleOnChange }: RawProps) {
-    return (
-        <S.div>
-            <S.textarea 
-                value={content}
-                onChange={handleOnChange}
-            />
-        </S.div>
-    )
+function Raw ({ content, handleOnChange }: RawProps): JSX.Element {
+	return (
+		<S.div>
+			<S.textarea 
+				value={content}
+				onChange={handleOnChange}
+			/>
+		</S.div>
+	)
 }
 
 const S = {
-    div: styled.div`
+	div: styled.div`
         display: block;
 
         width: 50%;
@@ -29,7 +29,7 @@ const S = {
         padding-right: 5rem;
         border-right: 1px solid rgba(30, 41, 59, 0.12);
     `,
-    textarea: styled.textarea`
+	textarea: styled.textarea`
         font-family: Inconsolata;
         font-size: 2rem;
         font-weight: 500;

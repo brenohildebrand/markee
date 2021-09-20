@@ -1,16 +1,16 @@
-import React, { ReactNode } from "react";
-import styled, { css } from "styled-components";
+import React, { ReactNode } from 'react'
+import styled, { css } from 'styled-components'
 
 type LabelProps = {
     children: ReactNode
 }
 
-function Label ({ children }: LabelProps) {
-    return <S.div>{children}</S.div>
+function Label ({ children }: LabelProps): JSX.Element {
+	return <S.div>{children}</S.div>
 }
 
 const S = {
-    div: styled.div`${({ theme }) => css`
+	div: styled.div`${({ theme }) => css`
         display: flex;
         flex-direction: row;
         align-items: center;

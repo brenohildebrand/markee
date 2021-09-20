@@ -4,26 +4,26 @@ import { Sidebar } from '@ui/Sidebar/sidebar'
 import { Editor } from '@ui/Editor/editor'
 import { useFiles } from '@hooks/useFiles'
 
-function App () {
-  const { files, actions, inputRef } = useFiles();
+function App (): JSX.Element {
+	const { files, actions, inputRef } = useFiles()
 
-  return (
-    <S.div>
-      <Sidebar 
-        files={files} 
-        actions={actions}
-      />
-      <Editor 
-        activeFile={files.find(file => file.active) ?? undefined}
-        inputRef={inputRef} 
-        actions = {actions}
-      />
-    </S.div>
-  )
+	return (
+		<S.div>
+			<Sidebar 
+				files={files} 
+				actions={actions}
+			/>
+			<Editor 
+				activeFile={files.find(file => file.active) ?? undefined}
+				inputRef={inputRef} 
+				actions = {actions}
+			/>
+		</S.div>
+	)
 }
 
 const S = {
-  div:  styled.div`
+	div:  styled.div`
     display: flex;
     flex-direction: row;
 
